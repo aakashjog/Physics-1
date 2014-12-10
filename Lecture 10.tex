@@ -1,0 +1,53 @@
+\documentclass[fleqn, a4paper, 12pt, dev]{article}
+\usepackage{amsmath, amssymb, amsthm}
+%\usepackage{gensymb}
+\usepackage{commath}
+\usepackage{siunitx}
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{calc, hobby}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+%\renewcommand{\int}{\int\displaylimits}
+
+%opening
+\title{Lecture 10}
+\author{Aakash Jog}
+\date{\formatdate{27}{11}{2014}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{}
+
+
+
+\end{document}

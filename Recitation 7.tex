@@ -1,0 +1,69 @@
+\documentclass[fleqn, a4paper, 12pt]{article}
+\usepackage{amsmath, amssymb, commath, amsthm}
+\usepackage{gensymb}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+	
+%opening
+\title{Recitation 7}
+\author{}
+\date{\formatdate{10}{12}{2014}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{}
+
+\begin{example}
+	On one side of a boat of mass $M$, a box of mass $m$ is placed and the boat's engine is pulling the box via a massless rope. At $t = 0$ the entire system is at rest. Then the engine is turned on and it starts pulling the box with force $\overrightarrow{F}(t) = \alpha t$ where $\alpha$ is a positive constant. The friction coefficients between the box and the boat are $\mu_s$ and $\mu_k$. The engine is working for time $\tau = \dfrac{mg}{\alpha}$ and then stops. Assuming that the box does not reach the end of the boat nor collide with any other object, what will be the boat's velocity after a very long time $t >> \tau$? Find the box's velocity w.r.t. the boar from the moment the engine is turned on.
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		F &= \alpha t &;\quad 0 \leq t \leq \tau = \dfrac{mg}{\alpha}\\
+		N_s &= \mu_s m g\\
+		N_k &= \mu_k m g
+	\end{align*}
+	Let $t_0$ be the time when the box starts moving.
+	\begin{align*}
+		F(t) &= \mu_s m g\\
+		&= \alpha t\\
+		\therefore t_0 &= \dfrac{\mu_s m g}{\alpha}
+	\end{align*}
+	For $t_0 < t < \tau$,
+	\begin{align*}
+		\alpha t - \mu_k m g &= m a\\
+		\therefore a &= \dfrac{\alpha t}{m} - \mu_k g\\
+		\therefore v &= \int\limits_{t_0}^{\tau} a(t) \dif t\\
+		&= \dfrac{\alpha}{2m} (\tau^2 - t_0^2) - \mu_k g (\tau - t_0)
+	\end{align*}
+	For $t > \tau$,
+	\begin{align*}
+		a &= \mu_k g\\
+		\therefore v &= v_{\tau} + \int\limits_{\tau}^{t} g \dif t\\
+		&= v_{\tau} - \mu_k g (t - \tau)
+	\end{align*}
+	
+\end{solution}
+
+\end{document}

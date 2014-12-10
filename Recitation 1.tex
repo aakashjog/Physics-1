@@ -1,0 +1,143 @@
+\documentclass[fleqn]{article}
+\usepackage{amsmath, amssymb, esdiff}
+\usepackage{gensymb}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+
+%opening
+\title{Recitation 1}
+\author{}
+\date{\formatdate{29}{10}{2014}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{Calculus}
+
+\subsection{Examples}
+
+\subsubsection{Example 1}
+
+\begin{align*}
+	s_t &= 16 t^2 \\
+	\therefore s_{t + \Delta t} &= 16 (t + \Delta t)^2 \\
+	&= 16t^2 + 32t \Delta t + 16 (\Delta t)^2 \\
+	&= s_t + 32t \Delta t + 16 (\Delta t)^2 \\
+	\therefore \dfrac{s_{t + \Delta t} - s_t}{\Delta t} &= \dfrac{\Delta s}{\Delta t} = 32 t \\
+	\therefore \diff{s}{t} &= 32 t
+\end{align*}
+
+\subsubsection{Example 2}
+
+\begin{align*}
+	y = f(x) &= x^2 - 4x\\
+	x = g(t) &= (2t^2 + 1)^{\frac{1}{2}}\\
+	y &= f(g(t))\\
+	\therefore \diff{y}{x} &= 2x -4\\
+	\therefore \diff{x}{t} &= \dfrac{(\frac{1}{2})4 t}{\sqrt{2t^2 + 1}}\\
+	\therefore \diff{y}{t} &= \dfrac{2t(2x-4)}{\sqrt{2t^2 + 1}} = \dfrac{2t(2(2t^2 + 1)^{\frac{1}{2}}-4)}{\sqrt{2t^2 + 1}} \\
+\end{align*}
+
+\subsubsection{Example 3}
+
+\begin{align*}
+	4x^2 + 9y^2 &= 36\\
+	\therefore \diff{}{x}(4x^2 + 9y^2) &= \diff{}{x} (36)\\
+	\therefore 8x + 18y \diff{y}{x} &= 0\\
+	\therefore \diff{y}{x} &= - \dfrac{4x}{9y}
+\end{align*}
+
+\subsubsection{Example 4}
+
+A cable is hanging between two poles 250 metres apart, making a parabola. The vertical distance between the point where the cable is attached and the lowest point is 50 metres. Find the angle between the pole and the cable at the point where it is attached.\\
+
+\begin{align*}
+	y &= kx^2\\
+	\therefore 50 &= k(125)^2\\	
+	\therefore k &= \dfrac{2}{625}\\
+	\therefore y &=\dfrac{2}{625} x^2\\
+	\therefore \diff{y}{x} &= \dfrac{4}{625}\\
+	\therefore \text{at } x = 125, \diff{x}{y} = \text{slope of tangent} &= \dfrac{(4)(125)}{625} = 0.8 \\
+	\therefore \tan \psi &= 0.8\\
+	\therefore \psi &= 39\degree\\
+	\therefore \theta &= 90\degree - 39\deg = 51\degree
+\end{align*}
+
+\newpage
+\section{Kinematics}
+
+\subsection{Kinematic Equations}
+
+\begin{align}	
+	v_t &= v_0 + a t \\
+	s_t &= v_0 t + \dfrac{1}{2} a t^2 \\
+	v_t^2 &= v_0^2 + 2 a s 
+\end{align}
+
+\subsection{Examples}
+
+\subsubsection{A stone is thrown upwards and rises upto 20 metres. What is the initial velocity of the stone?}
+
+\begin{align*}
+	v_t^2 &= v_0^2 + 2 a s \\
+	\therefore 0 &= v_0^2 + 2(10)(20)\\
+	\therefore v_0 &= 20 \text{ m/s}
+\end{align*}
+
+\subsubsection{On the moon ($g =$ 1.6 m/s$^2$), a ball is thrown upwards with 35 m/s. Find the following.}
+
+\paragraph{Maximum height reached}
+
+\begin{align*}
+	v_t^2 &= v_0^2 + 2 a s \\
+	\therefore 0 &= 35^2 + 2(-1.6)(d)\\
+	\therefore d &= 380 \text{ m}
+\end{align*}
+
+\paragraph{Time required to reach the maximum height}
+
+\begin{align*}
+	v_t &= v_0 + a t \\
+	\therefore 0 &= 35 + (-1.6)t \\
+	\therefore t &= \dfrac{175}{4} \text{secs}
+\end{align*}
+
+\paragraph{Velocity 30 seconds after the ball is thrown}
+
+\begin{align*}
+	v_t &= v_0 + a t \\
+	\therefore v_{30} &= 35 -(1.6)(30) = -13 \text{ m/s}
+\end{align*}
+
+\paragraph{Time at which the ball is at 100 metres}
+
+\begin{align*}
+	v_t^2 &= v_0^2 + 2 a s \\
+	\therefore 100 &= (35)t + (\dfrac{1}{2})(-1.6)t^2\\
+	\therefore (-0.8)t^2 - 35t + 100 &= 0 \\
+	\therefore t &= \dfrac{35 \pm \sqrt{35^2 -(4)(80)}}{(2)(0.8)} \\
+	\therefore t &= \dfrac{35 \pm \sqrt{905}}{1.6}
+\end{align*}
+
+\subsubsection{A projectile is thrown with 100 m/s at 30 \degree from the $x$-axis. Find the time required for it to reach the ground}
+
+\begin{align*}
+	(v_x)_0 &= v_0 \cos \theta = 87 { m/s}\\
+	(v_y)_0 &= v_0 \sin \theta = 50 { m/s}\\
+	y &= (v_y)_0 t - \dfrac{1}{2} g t\\
+	x &= (v_x)_0 t \\
+	s_t &= v_0 t + \dfrac{1}{2} a t^2 \\
+	\therefore 0 &= (v_y)_0 t + \dfrac{1}{2}(-9.8) t^2\\
+	\therefore t &= 10.2 \text{secs}
+\end{align*}
+
+\end{document}

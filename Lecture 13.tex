@@ -1,0 +1,204 @@
+\documentclass[fleqn, a4paper, 12pt, draft]{article}
+\usepackage{amsmath, amssymb, amsthm}
+%\usepackage{gensymb}
+\usepackage{commath}
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{siunitx}
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{calc, hobby, patterns}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{xfrac}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+%\renewcommand{\int_{min}^{max}}{\int\displaylimits_{min}^{max}}
+
+%opening
+\title{Lecture 13}
+\author{Aakash Jog}
+\date{\formatdate{9}{12}{2014}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{Variable Mass Systems}
+
+\begin{example}
+	At $t = 0$, rain starts falling vertically into a cart of mass $m_0$, moving with a velocity $v_0$, with rate $k$. Find the velocity of the cart as a function of time.
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		\dod{m}{t} &= k\\
+		\therefore m - m_0 &= kt\\
+		\therefore m &= m_0 + kt
+	\end{align*}
+	\begin{align*}
+		p_x(t) &= m v\\
+		p_x(t + \dif t) &= (m + \dif m) (v + \dif v)\\
+		&= m v + m \dif v + \dif m v + \dif m \dif v
+	\end{align*}
+	\begin{align*}
+		\dod{p_x}{t} &= 0\\
+		\therefore 0 &= \dfrac{p_x(t + \dif t) - p_x(t)}{\dif t}\\
+		&= m \dod{v}{t} + \dod{m}{t} v + \cancelto{0}{\dfrac{\dif m \dif v}{\dif t}}\\
+		&= (m_0 + k t) \dod{v}{t} + k b\\
+		\therefore v &= \dfrac{m_0 v_0}{m_0 + k t}
+	\end{align*}
+\end{solution}
+
+\begin{example}
+	A cart of mass $m_0$, filled with sand of mass $m_1$ is moving with $v_0$. At $t = 0$, sand starts to drop through a hole in the bottom, with a rate $k$. Find the velocity of the cart as a function of time.
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		\dod{m}{t} &= -k\\
+		\therefore m - (m_0 + m_1) &= -kt\\
+		\therefore m &= (m_0 + m_1) -kt
+	\end{align*}
+	\begin{align*}
+		p_x(t) &= m v\\
+		p_x(t + \dif t) &= (m + \dif m) (v + \dif v) + (-\dif m v)\\
+		&= m v + m \dif v + \cancel{\dif m v} + \dif m \dif v - \cancel{\dif m v}
+	\end{align*}
+	\begin{align*}
+		\dod{p_x}{t} &= 0\\
+		\therefore 0 &= \dfrac{p_x(t + \dif t) - p_x(t)}{\dif t}\\
+		&= m \dod{v}{t} + \cancelto{0}{\dfrac{\dif m \dif v}{\dif t}}\\
+		\therefore \dod{v}{t} &= 0\\
+		\therefore v &= v_0
+	\end{align*}
+\end{solution}
+
+\begin{example}
+	A piece of rope with length $L$ and mass $M_0$ is lying on a table, with one end being pulled up by a force $F$ s.t. it moves upwards with a constant $v$. Find $F$ as a function of $l$, i.e. the length of the rope above the table, and the power of this force.
+\end{example}
+
+\begin{solution}
+	\hspace{1cm}\\
+	\begin{figure}[h]
+		\begin{tikzpicture}
+			%definition of origin
+			\coordinate (O) at (0,0,0); 
+			
+			%definition of minimum and maximum values for axes
+			\def\xMIN{-2};
+			\def\yMIN{-2};
+			\def\xMAX{2};
+			\def\yMAX{2};
+			
+			%axes
+			%		\draw [<->, lightgray] (\xMIN,0,0) -- (\xMAX,0,0) node [right] {$x$}; 
+			%		\draw [<->, lightgray] (0,\yMIN,0) -- (0,\yMAX,0) node [above] {$y$};
+			
+			%
+			\tikzstyle{ground}=[fill,pattern=north east lines,draw=none,minimum width=0.75cm,minimum height=0.3cm]
+			
+			%definition of variables
+			\def\l{2};
+			
+			\coordinate (rope top) at (0,\l);
+			%
+			\draw (\xMIN, 0) -- (\xMAX, 0);
+			\draw [very thick] (O) -- (rope top);
+			
+			\draw [->, red] (rope top) -- ++(90:1) node [above] {$F$};
+			
+			\draw [|<->|] (O) ++(1,0) -- ++(90:\l) node [midway, fill=white] {$l$};
+			
+			\draw [->] (O) ++(-1,1) -- ++(90:0.5) node [left] {$v_0$};
+		\end{tikzpicture}
+	\end{figure}
+	\begin{align*}
+		\dod{p}{t}&= F(l) - \dfrac{M_0}{L} l g\\
+		\therefore \dod{m}{t} v + m \cancelto{0}{\dod{v}{t}} &= F(l) - \dfrac{M_0}{L} l g\\
+		\therefore \dod{m}{t} v_0 &= F(l) - \dfrac{M_0}{L} l g
+	\end{align*}
+	\begin{align*}
+		m(l) &= \dfrac{M_0}{L} l\\
+		\therefore m(t) &= \dfrac{M_0}{L} v_0 t\\
+		\therefore \dod{m}{t} &= \dfrac{M_0 v_0}{L}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		F(l) &= \dfrac{M_0}{L} (v_0^2 + l g)\\
+		\therefore P_F &= F(l) \cdot v\\
+		&= \dfrac{M_0}{L} (v_0^3 + l g v_0)
+	\end{align*}
+	\begin{align*}
+		E_K	&= \dfrac{1}{2} m(l) v_0^2\\
+		&= \dfrac{M_0}{2L} l v_0^2\\
+		U &= m(l) g \dfrac{l}{2}\\
+		&= \dfrac{M_0}{2L} l^2 g\\
+		E &= E_K + U\\
+		&= \dfrac{M_0}{2L} (l v_0^2 + l^2 g)\\
+		&= \dfrac{M_0}{2L} (v_0^3 t + v_0^2 g t^2)\\
+		\therefore \dod{E}{t} &= \dfrac{M_0 v_0^3}{2L} + \dfrac{M_0 v_0^2 g t}{L}
+	\end{align*}
+	Therefore, the power supplied by the force is greater than the rate of change of energy of the rope. This is because power is required to provide energy to the parts of the rope which are lying on the table to set them into motion.
+\end{solution}
+
+\begin{example}
+	A body is thrown upwards with $v_0$. It experiences gravitational force and friction due to air $F = - b m v$, where $b > 0$ is a constant. After what time will the body reach its maximum height?
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		m \dod {v}{t} &= - m g - b m v\\
+		\therefore \int\limits_{v_0}^{0} \dfrac{\dif v}{g + b v} &= -\int\limits_{0}^{t_{\text{top}}} \dif t\\
+		\therefore \dfrac{1}{b} \int\limits_{v_0}^{0} \dfrac{b \dif v}{g + b v} &= -\int\limits_{0}^{t_{\text{top}}} \dif t\\
+		\therefore \dfrac{1}{b} \ln \left( \dfrac{g}{g + b v_0} \right) &= - t_{\text{top}}\\
+		\therefore t_{\text{top}} &= \dfrac{1}{b} \ln \left( 1 + \dfrac{b v_0}{g} \right)
+	\end{align*}
+	\begin{align*}
+		v(t) &= \left( \dfrac{g}{b} + v_0 \right) e^{-bt} - \dfrac{g}{b}
+	\end{align*}
+	Also,
+	\begin{align*}
+		\ddot{y} + b \dot{y} &= 0\\
+		\therefore y &= A e^{0 t} + B e^{-b t}\\
+		&= A + B e^{-b t}
+	\end{align*}
+	At $t = 0$,
+	\begin{align*}
+		y &= 0\\
+		\dot{y} &= v_0\\
+		y_P &= -\dfrac{g}{b} t
+	\end{align*}
+	where $y_P$ is a particular solution.\\
+	Solving, 
+	\begin{align*}
+		A &= \dfrac{g}{b^2} + \dfrac{v_0}{b}\\
+		B &= - \dfrac{g}{b^2} - \dfrac{v_0}{b}
+	\end{align*}
+\end{solution}
+
+\end{document}

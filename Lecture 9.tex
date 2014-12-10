@@ -1,0 +1,249 @@
+\documentclass[fleqn]{article}
+\usepackage{amsmath, amssymb, amsthm}
+%\usepackage{gensymb}
+\usepackage{commath}
+\usepackage{siunitx}
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{calc, hobby}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+%\renewcommand{\int}{\int\displaylimits}
+
+%opening
+\title{Lecture 9}
+\author{Aakash Jog}
+\date{\formatdate{25}{11}{2014}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{Curl}
+
+\begin{tikzpicture}
+	\draw [<->] (-1,0) -- (5,0);
+	\draw [<->] (0,-1) -- (0,5);
+	
+	\fill (1,0) circle [radius=1pt] node [below] {$x_0$};
+	\fill (4,0) circle [radius=1pt] node [below] {$x_0 + \dif x$};
+	\fill (0,1) circle [radius=1pt] node [left] {$y_0$};
+	\fill (0,4) circle [radius=1pt] node [left] {$y_0 + \dif y$};
+	
+	\draw [->] (1,1) -- (4,1);
+	\draw [->] (4,1) -- (4,4);
+	\draw [->] (4,4) -- (1,4);
+	\draw [->] (1,4) -- (1,1);
+\end{tikzpicture}
+
+\begin{align*}
+		\oint \overrightarrow{F} \cdot \dif \overrightarrow{r} 
+		&= \int \overrightarrow{F}_x (x_0 + \dfrac{\dif x}{2}, y_0, z_0) \dif x 
+		+ \int \overrightarrow{F}_y (x_0 + \dif x, y_0 + \dfrac{\dif y}{2}, z_0) \dif y\\
+		&- \int \overrightarrow{F}_x (x_0 + \dfrac{\dif x}{2}, y_0 + \dif y, z_0) \dif x 
+		- \int \overrightarrow{F}_y (x_0, y_0 + \dfrac{\dif y}{2}, z_0) \dif y \\
+		&= \Big( 
+		\int \overrightarrow{F}_x (x_0 + \dfrac{\dif x}{2}, y_0, z_0)
+		- \int \overrightarrow{F}_x (x_0 + \dfrac{\dif x}{2}, y_0 + \dif y, z_0) 
+		\Big) \dif x \\
+		&+ \Big(
+		\int \overrightarrow{F}_y (x_0 + \dif x, y_0 + \dfrac{\dif y}{2}, z_0)
+		- \int \overrightarrow{F}_y (x_0, y_0 + \dfrac{\dif y}{2}, z_0) 
+		\Big) \dif y \\
+		&= \dfrac{\int \overrightarrow{F}_x (x_0 + \dfrac{\dif x}{2}, y_0, z_0)
+		- \int \overrightarrow{F}_x (x_0 + \dfrac{\dif x}{2}, y_0 + \dif y, z_0)}{\dif y} \dif x \dif y \\
+		&+ \dfrac{\int \overrightarrow{F}_y (x_0 + \dif x, y_0 + \dfrac{\dif y}{2}, z_0)
+		- \int \overrightarrow{F}_y (x_0, y_0 + \dfrac{\dif y}{2}, z_0)}{\dif x} \dif x \dif y \\
+		&= 
+		- \dpd{F(x)}{y} \dif x \dif y
+		+ \dpd{F_y}{x} \dif x \dif y \\
+		&= \left(\dpd{F_y}{x} - \dpd{F_x}{y}\right) \dif x \dif y
+		\intertext{As $\overrightarrow{F}$ is conservative,}
+		\oint \overrightarrow{F} \cdot \dif \overrightarrow{r} &= 0 \\
+		\therefore \dpd{F_y}{x} - \dpd{F_x}{y} &= 0 \\
+		\therefore \dpd{F_z}{x} - \dpd{F_x}{z} &= 0 \\
+		\therefore \dpd{F_z}{y} - \dpd{F_y}{z} &= 0 \\
+\end{align*}
+
+\begin{definition}
+	\begin{align*}
+		\curl \overrightarrow{F} &\doteq \overrightarrow{\nabla} \times \overrightarrow{F} \\
+		&=
+		\begin{vmatrix} 
+			\hat{x} & \hat{y} & \hat{z} \\
+			\dpd{}{x} & \dpd{}{y} & \dpd{}{z} \\
+			F_x & F_y & F_z \\
+		\end{vmatrix}
+	\end{align*}
+	If $\overrightarrow{F}$ is conservative, $\curl \overrightarrow{F} = 0$.
+\end{definition}
+
+\section{Equilibria}
+
+\begin{equation*}
+	F = -\dod{U}{x}
+\end{equation*}
+Therefore, the force is pointing to the direction in which $U$ decreases.
+
+\begin{tikzpicture}
+	\draw [<->] (-1,0) -- (7,0) node [right] {$x$};
+	\draw [<->] (0,-1) -- (0,3) node [above] {$U$};
+	
+	\coordinate (a) at (1,1);
+	\coordinate (b) at (2,4);
+	\coordinate (c) at (3,2);
+	\coordinate (d) at (4,3);
+	\coordinate (e) at (5,1);
+	
+	\draw plot [smooth, tension=2] coordinates {(a) (b) (c) (d) (e)};
+\end{tikzpicture}\\
+At the local extrema of $U$, the force is always zero. \\
+In the neighbourhood of the point with the local minima, all forces are pointing towards the point, and at the local maxima, they are pointing away from it.\\
+Therefore at the point where $U$ is minimum, there is stable equilibrium. At the point where $U$ is maximum, there is unstable equilibrium.
+
+\begin{example}
+	\begin{tikzpicture}
+		\draw [->, very thin, lightgray] (0,0) -- (5,0) node [right] {$x$};
+		\draw [->, very thin, lightgray] (0,0) -- (0,-5) node [below] {$y$};
+		
+		\draw [dashed, red] (-6,0) -- (0,0) node [above] {$U = 0$};
+		
+		\coordinate (a) at (-4,{-0.25*(4^2)});
+		\coordinate (b) at (4,{-0.25*(4^2)});
+		
+		\draw plot [domain=-6:6] (\x, {-0.25*pow(\x,2)});
+		
+		\fill (a) circle [radius = 4pt];
+		\fill (b) circle [radius = 4pt];
+		
+		\draw [decorate, decoration={coil, aspect=1}] (a) -- (b);
+	\end{tikzpicture}
+	\begin{align*}
+		y &= b x^2
+	\end{align*}
+	Find $x_{\text{eq}}$.
+\end{example}
+
+\begin{solution}[Solution using energy]
+	\begin{align*}
+		U &= - 2 m g y + \dfrac{1}{2} k (2x - l)^2 \\
+		&= - 2 m g bx^2 + \dfrac{1}{2} k (2x - l)^2
+		\intertext{Differentiating w.r.t. $x$,}
+		0 = U' &= - 4 m g b x_{\text{eq}} + 2 k (2x - ) \\
+		\therefore x_{\text{eq}} = \dfrac{k l}{2(k - m g b)}
+	\end{align*}
+\end{solution}
+
+%\begin{solution}[Solution using forces]
+%	\begin{tikzpicture}
+%		\draw [->, very thin, lightgray] (0,0) -- (5,0) node [right] {$x$};
+%		\draw [->, very thin, lightgray] (0,0) -- (0,-5) node [below] {$y$};
+%		
+%		\draw [dashed, red] (-6,0) -- (0,0) node [above] {$U = 0$};
+%		
+%		\coordinate (a) at (-4,{-0.25*(4^2)});
+%		\coordinate (b) at (4,{-0.25*(4^2)});
+%		
+%		\draw plot [domain=-6:6] (\x, {-0.25*pow(\x,2)});
+%		
+%		\fill (a) circle [radius = 4pt];
+%		\fill (b) circle [radius = 4pt];
+%		
+%		\draw [decorate, decoration={coil, aspect=1}] (a) -- (b);
+%	\end{tikzpicture}
+%	
+%\end{solution}
+
+\begin{example}
+	\begin{tikzpicture}
+		\draw [->, very thin, lightgray] (0,0) -- (5,0) node [right] {$x$};
+		\draw [->, very thin, lightgray] (0,0) -- (0,-5) node [below] {$y$};
+	
+		\draw (0,0) -- ++(210:8) -- ++(0:{8*cos(30)}) -- cycle;	
+		
+		\draw [dashed, very thin, red] (-4,0) -- (4,0) node [above] {$U = 0$};
+		
+		\draw [ultra thick] (210:3) -- (0,0) -- (-90:2);
+		
+		\draw [|<->|, xshift=10] (0,0) -- (-90:2) node [midway, fill=white] {$y$};
+		\draw [|<->|, xshift=-12, yshift=12] (0,0) -- (210:3) node [midway, fill=white] {$l - y$}; %label along line??? 
+	\end{tikzpicture}
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		U_{\text{right side}} &= \int \dif m g (-\tilde{y}) \\
+		&= \int_{0}^{y} - \left(\dfrac{m_0}{l} \dif \tilde{y}\right) g \tilde{y}\\
+		&= - \dfrac{m_0 g}{l} \int_{0}^{y} \tilde{y} \dif \tilde{y} \\
+		&= - \dfrac{m_0 g}{l} \dfrac{y^2}{2} \\
+		&= - \left(\dfrac{m_0}{l} y\right) g \left(\dfrac{y}{2}\right)
+	\end{align*}
+	\begin{align*}
+		U_{\text{left side}} &= \int \dif m g (-\tilde{y} \sin \theta)\\
+		&= \int_{0}^{l - y} - \left(\dfrac{m_0}{l} \dif \tilde{y}\right) g \tilde{y} \sin \theta\\
+		&= - \dfrac{m_0 g}{l} \int_{0}^{l - y} \tilde{y} \dif \tilde{y} \sin \theta\\
+		&= - \dfrac{m_0 g \sin \theta}{l} \dfrac{(l - y)^2}{2} \\
+		&= - \left(\dfrac{m_0}{l} (l - y)\right) g \left(\dfrac{(l - y) \sin \theta}{2}\right)
+	\end{align*}
+	\begin{align*}
+		\therefore U &= U_{\text{right side}} + U_{\text{left side}}\\
+		&= - \dfrac{m_0 g}{2l} y^2 - \dfrac{m_0 g \sin \theta}{2l} (l - y)^2\\
+		\intertext{Minimizing $U$,}
+		y_{\text{eq}} &= \sin \theta (l - y)
+	\end{align*}
+\end{solution}
+
+\section{Principle of Conservation of Momentum}
+
+\begin{align*}
+	m \ddot{\overrightarrow{r_1}} &= \overrightarrow{F_{1,\text{ext}}} + \overrightarrow{F_{1,2}}\\
+	m \ddot{\overrightarrow{r_2}} &= \overrightarrow{F_{2,\text{ext}}} + \overrightarrow{F_{2,1}}\\
+	\therefore m \ddot{\overrightarrow{r_1}} + m \ddot{\overrightarrow{r_2}} &= \overrightarrow{F_{1,\text{ext}}} + \overrightarrow{F_{2,\text{ext}}}\\
+	\therefore \sum m_i \ddot{\overrightarrow{r_i}} &= \sum \overrightarrow{F_{i,\text{ext}}}\\
+	\intertext{If $\sum \overrightarrow{F_{\text{ext}}} = 0$,}
+	\sum m_i \ddot{\overrightarrow{r_i}} &= 0\\
+	\therefore \sum m_i \dod{\overrightarrow{v_i}}{t} &= 0\\
+	\therefore \dod{}{t}\left(\sum m_i \overrightarrow{v_i}\right)&= 0\\
+	\therefore \overrightarrow{p_{\text{total}}} = \sum m_i \overrightarrow{v_i} &= \text{ constant }
+\end{align*}
+
+\section{Centre of Mass}
+
+\begin{align*}
+	\sum m_i a_i &= \dod{}{t} \overrightarrow{p_{\text{total}}} = \sum \overrightarrow{F_{\text{ext}}} \\
+	\therefore \left(\sum m_i\right) a_{\text{total}} &= \sum m_i \ddot{\overrightarrow{r_i}} \\
+	\therefore a_{\text{total}} &= \dfrac{\sum m_i \ddot{\overrightarrow{r_i}}}{\sum m_i} \\
+	&= \dod[2]{}{t} \left(\dfrac{\sum m_i \overrightarrow{r_i}}{\sum m_i} \right)\\
+	&\doteq \ddot{\overrightarrow{r_{\text{COM}}}}\\
+	\overrightarrow{r_{\text{COM}}} &\doteq \dfrac{\sum m_i \overrightarrow{r_i}}{\sum m_i}
+\end{align*}
+
+\end{document}
