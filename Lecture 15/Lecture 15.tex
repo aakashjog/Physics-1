@@ -1,0 +1,246 @@
+\documentclass[fleqn, a4paper, 12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{gensymb}
+\usepackage{commath}
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{siunitx}
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{calc, hobby, patterns}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{xfrac}
+\usepackage{asymptote}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+%\renewcommand{\int_{min}^{max}}{\int\displaylimits_{min}^{max}}
+
+%opening
+\title{Lecture 15}
+\author{Aakash Jog}
+\date{\formatdate{18}{12}{2014}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{Circular Motion Dynamics}
+
+\begin{example}
+	Find condition on $m_1$ and $m_2$ so that the loop will not jump up when the beads are released from rest from the top.\\
+	\begin{tikzpicture}
+		\coordinate (O) at (0,0);
+		
+		\def\r{2};
+		\def\angle{60};
+	
+		\coordinate (bead1) at ({90-\angle}:\r);
+		\coordinate (bead2) at ({90+\angle}:\r);
+	
+		\draw (O) circle [radius = \r];
+	
+		\draw [dashed] (O) -- ({90-\angle}:\r);
+		\draw [dashed] (O) -- ({90+\angle}:\r);
+		
+		\fill (bead1) circle [radius = 2 pt];
+		\fill (bead2) circle [radius = 2 pt];
+		
+		\draw (O)++(90:\r) -- ++(90:3);
+		\draw [ultra thick] (O)++(90:{\r+3}) -- ++(0:5);
+		\draw [ultra thick] (O)++(90:{\r+3}) -- ++(180:5);
+	\end{tikzpicture}
+\end{example}
+
+\begin{solution}
+	\hspace{1cm}\\
+	\begin{tikzpicture}
+		\coordinate (O) at (0,0);
+		
+		\def\r{4};
+		\def\criticalangle{48};
+		\def\angle{60};
+		
+		\coordinate (bead1) at ({90-\angle}:\r);
+		\coordinate (bead2) at ({90+\angle}:\r);
+		
+		\draw (O) circle [radius = \r];
+		
+		\draw [dashed] (O) -- (90: \r);
+		
+		\draw [dashed] (O) -- ({90-\criticalangle}:\r);
+			\draw (90:3) arc (90:{90-\criticalangle}:3) node [midway, fill = white] {$48.1 \degree$};
+		\draw [dashed] (O) -- ({90+\criticalangle}:\r);
+		
+		\draw [dashed] (O) -- ({90-\angle}:\r);
+			\draw (90:2) arc (90:{90-\angle}:2) node [midway, fill = white] {$\theta$};
+		\draw [dashed] (O) -- ({90+\angle}:\r);
+		
+		\fill (bead1) circle [radius = 2 pt];
+		\fill (bead2) circle [radius = 2 pt];
+		
+		\draw [-stealth, red](O) -- ++(-90:1) node [below] {$m_1 g$};
+		
+		\draw [-stealth, red](O)++(90:\r) -- ++(90:1) node [above] {$T$};
+		
+		\draw [-stealth, red] (bead1) -- ++({90-\angle}:2) node [above right] {$N$};
+			\draw [-stealth, red] (bead1) -- ++(90:{2*(cos \angle)}) node [above] {$N \cos \theta$};
+		\draw [-stealth, red] (bead2) -- ++({90+\angle}:2) node [above left] {$N$};
+			\draw [-stealth, red] (bead2) -- ++(90:{2*(cos \angle)}) node [above] {$N \cos \theta$};
+	\end{tikzpicture}
+	The loop will jump up if
+	\begin{align*}
+		2 N \cos \theta > m_1 g
+	\end{align*}
+	Therefore, for the loop to not jump up,
+	\begin{align*}
+		2 N \cos \theta - m_1 g &> 0\\
+		\therefore \dfrac{m_1}{m_2} &< 4 \cos \theta - 6 \cos^2 \theta
+	\end{align*}
+\end{solution}
+
+\section{Rigid Body Mechanics}
+
+\begin{example}
+	A ladder is kept between 2 walls as shown.	Find the maximum angle for which the ladder does not slide.\\
+	\begin{tikzpicture}
+		%definition of origin
+		\coordinate (O) at (0,0); 
+		
+		%definition of minimum and maximum values for axes
+		\def\xMIN{0};
+		\def\yMIN{0};
+		\def\xMAX{6};
+		\def\yMAX{6};
+	
+		%axes
+		\draw [-stealth, lightgray] (\xMIN,0,0) -- (\xMAX,0) node [right] {$x$}; 
+		\draw [-stealth, lightgray] (0,\yMIN,0) -- (0,\yMAX) node [above] {$y$};
+	
+		%coordinates
+		\coordinate (ladder top) at (0,4);
+		\coordinate (ladder bottom) at (3,0);
+		\coordinate (COM) at ({3/2}, {4/2});
+		
+		%ladder
+		\draw [ultra thick] (ladder top) -- (ladder bottom);
+		
+		\node at (ladder bottom) [xshift = -20, yshift= 10] {$\theta$};
+		
+		\node at (ladder top) [left] {$A$};
+		\node at (ladder bottom) [below] {$C$};
+		\node at (COM) [above right] {$B$};
+		
+		%forces
+		\draw [-stealth, red] (ladder top) -- ++(0:1) node [right] {$N_2$};
+		
+		\draw [-stealth, red] (COM) -- ++(-90:1) node [below] {$mg$};
+		
+		\draw [-stealth, red] (ladder bottom) -- ++(90:1) node [above] {$N_1$};
+		
+		\draw [-stealth, red] (ladder bottom) -- ++(180:1) node [below] {$f_s$};
+	\end{tikzpicture}
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		\sum \overrightarrow{F_{\text{ext}}} &= 0\\
+		\intertext{Therefore,}
+		N_1 &= mg\\
+		N_2 &= f_s
+	\end{align*}
+	\begin{align*}
+		\sum \overrightarrow{\tau_{\text{ext}, C}} &= 0\\
+		\intertext{Therefore,}
+		\dfrac{L}{2} \cos \theta m g - L \sin \theta N_2 &= 0
+	\end{align*}
+	Solving,
+	\begin{align*}
+		\cot \theta &\leq 2 \mu_s
+	\end{align*}
+\end{solution}
+
+\begin{example}
+	A box is kept on a surface and a force $F$ is applied to the top corner. Assuming the box does not slide, find the force required for the box to topple.
+\end{example}
+
+\begin{solution}
+	\begin{tikzpicture}
+		%definition of origin
+		\coordinate (O) at (0,0); 
+		
+		%definition of minimum and maximum values for axes
+		\def\xMIN{-2};
+		\def\yMIN{-2};
+		\def\xMAX{6};
+		\def\yMAX{6};
+		
+		%ground
+		\draw (\xMIN,0) -- (\xMAX,0); 
+		
+		%variables
+		\def\b{3};
+		\def\h{4};
+		\def\x{1};
+		
+		%box
+		\draw (0,0) rectangle (\b, \h);
+		\node at (\b,0) [below] {$A$};
+		
+		%dimensions
+		\draw [|<->|] (O)++(0,-2) -- ++(\b,0) node [midway, fill = white] {$b$};
+		\draw [|<->|] (O)++(-1,0) -- ++(0,\h) node [midway, fill = white] {$h$};
+		\draw [|<->|] (O)++({\b-\x},-1) -- ++(\x,0) node [midway, fill = white] {$x$};
+		
+		%forces
+		\draw [-stealth, red] (\b, \h) -- ++(0:1) node [right] {$F$};
+		\draw [-stealth, red] ({\b/2}, {\h/2}) -- ++(-90:1) node [below] {$mg$};
+		\draw [-stealth, red] ({\b - \x}, 0) -- ++(90:1) node [above] {$N$};
+		\draw [-stealth, red] ({\b - \x}, 0) -- ++(180:1) node [below left] {$f$};
+	\end{tikzpicture}
+	\begin{align*}
+		\sum \overrightarrow{F_{\text{ext}}} &= 0\\
+		\intertext{Therefore,}
+		N &= mg\\
+		F &= f
+	\end{align*}
+	\begin{align*}
+		\sum \overrightarrow{\tau_{\text{ext}, A}} &= 0\\
+		\intertext{Therefore,}
+		-Nx + \dfrac{b}{2} m g - h F &= 0
+	\end{align*}
+	Solving,
+	\begin{align*}
+		F &= \dfrac{m g}{h} \left( \dfrac{b}{2} - x \right)
+	\end{align*}
+	The box will topple when $x = 0$, i.e. when
+	\begin{align*}
+		F &= \dfrac{m g b}{2h}
+	\end{align*}
+\end{solution}
+
+\end{document}
