@@ -1,0 +1,81 @@
+\documentclass[fleqn, a4paper, 12pt]{article}
+\usepackage{amsmath, amssymb, commath, amsthm}
+\usepackage{gensymb}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+	
+%opening
+\title{Recitation 10}
+\author{}
+\date{\formatdate{31}{12}{2014}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+
+\tableofcontents
+
+\newpage
+\section{}
+
+\begin{tabular}{|c|c|}
+	\hline
+	Translational motion & Rotational Motion\\
+	\hline
+	$x$ & $\theta$\\
+	$v$ & $\omega$\\
+	$a$ & $\alpha$\\
+	$\overrightarrow{p} = m \overrightarrow{v}$ & $\overrightarrow{L} = I \overrightarrow{\omega}$\\
+	$\overrightarrow{F} = m \overrightarrow{a}$ & $\overrightarrow{\tau} = I \overrightarrow{\alpha}$\\
+	$\overrightarrow{F} = \dod{\overrightarrow{p}}{t}$ & $\overrightarrow{\tau} = \dod{\overrightarrow{L}}{t}$\\
+	\hline
+\end{tabular}
+
+\begin{example}
+	A thin cylindrical chimney of length L is falling down, rotating around its base, point B, untill it breaks at some point P. Find the breaking point of the chimney.\\
+\end{example}
+
+\begin{solution}
+	Let the angle between the chimney and the vetical be $\alpha$ and let the distance between $B$ and $P$ be $x$.\\
+	The torque acting on the upper part of the chimney, about point $P$ is
+	\begin{align*}
+		\tau_p &= \left( \dfrac{m}{L} (L - x) \right) g \left( \dfrac{L - x}{2} \right) \sin \alpha\\
+	\end{align*}
+	Let
+	\begin{align*}
+		m_1 &= \dfrac{m}{L} (L - x)
+	\end{align*}
+	Therefore, the moment of inertia of the upper part of the chimney is
+	\begin{align*}
+		I_1 &= \dfrac{m_1(L - x)^2}{3}\\
+		&= \dfrac{m}{L} \cdot \dfrac{(L - x)^3}{3}
+	\end{align*}
+	\begin{align*}
+		\tau &= \tau_P + \tau(x)\\
+		&= I_1 \ddot{\alpha}\\
+		\therefore \tau(x) &= I_1 \ddot{\alpha}\\
+		&= \left( \dfrac{m}{L} \right) \dfrac{(L - x)^3}{3} \ddot{\alpha} - \dfrac{M g}{2 L} (L - x)^2 \sin \alpha\\
+		&= \left( \dfrac{m}{L} \right) \dfrac{(L - x)^3}{3} \left( \dfrac{3 g \sin \alpha}{2 L} \right) - \dfrac{M g}{2 L} (L - x)^2 \sin \alpha\\
+		&= \left( \dfrac{M g \sin \alpha}{2 L} \right) \left( \dfrac{(L - x)^3}{L} - (L - x)^2 \right)
+	\end{align*}
+	Differentiating, $\tau(x)$ is maximum at $x = \dfrac{L}{3}$.
+\end{solution}
+
+\end{document}
