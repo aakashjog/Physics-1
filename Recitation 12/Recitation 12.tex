@@ -1,0 +1,128 @@
+\documentclass[fleqn, a4paper, 12pt]{article}
+\usepackage{amsmath, amssymb, commath, amsthm}
+\usepackage{gensymb}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\renewcommand\thesubsubsection{\arabic{subsubsection}}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+	
+%opening
+\title{Recitation 12}
+\author{}
+\date{\formatdate{14}{1}{2015}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+%\tableofcontents
+
+%\newpage
+\section*{Week 12 : Class Exercises}
+
+\subsection*{Exercise 3}
+
+\subsubsection{}
+
+\begin{align*}
+	m g &= k x_0\\
+	\therefore x_0 &= \dfrac{m g}{k}
+\end{align*}
+
+\subsubsection{}
+
+Let the distance about the equilibrium position be
+\begin{align*}
+	z &= x - x_0\\
+	\therefore \ddot{z} &= \ddot{x}
+\end{align*}
+Therefore,
+\begin{align*}
+	\ddot{z} + \dfrac{k}{m} z &= 0\\
+	\therefore z(t) &= A \cos \dfrac{k}{m} t + B \sin \dfrac{k}{m} t\\
+	\intertext{According to the initial conditions,}
+	z(t) &= -\dfrac{m v_0}{k} \sin \dfrac{k}{m} t
+\end{align*}
+
+\section*{Week 12 : Home Assignment}
+
+\subsection*{Exercise 5}
+
+\begin{align*}
+	-kx - f &= m \ddot{x}
+\end{align*}
+Considering torques about the centre,
+\begin{align*}
+	R f &= \dfrac{m R^2}{2} \ddot{\theta}
+\end{align*}
+As the cylinder is purely rolling,
+\begin{align*}
+	\dot{x} &= \dot{\theta} R\\
+	\ddot{x} &= \ddot{\theta} R
+\end{align*}
+Therefore,
+\begin{align*}
+	f &= \dfrac{m \ddot{x}}{2}\\
+	\therefore -kx + \dfrac{m \ddot{x}}{2} &= m \ddot{x}\\
+	\therefore \ddot{x} + \dfrac{2k}{3m} x &= 0\\
+	\therefore \omega &= \sqrt{\dfrac{2k}{3m}}
+\end{align*}
+~\\
+Also, as the cylinder is purely rolling, mechanical energy is conserved.\\
+Therefore,
+\begin{align*}
+	E &= \dfrac{1}{2} k x^2 + \dfrac{1}{2} m \dot{x}^2 + \dfrac{1}{2} I {\dot{\theta}}^2\\
+	&= \dfrac{1}{2} k x^2 + \dfrac{1}{2} m \dot{x}^2 + \dfrac{1}{4} m \dot{x}^2\\
+	\therefore 0 &= k x \dot{x} + m \dot{x} \ddot{x} + \dfrac{1}{2} m \dot{x} \ddot{x}\\
+	\therefore 0 &= \ddot{x} + \dfrac{2k}{3m} x\\
+	\therefore \omega &= \sqrt{\dfrac{2k}{3m}}
+\end{align*}
+
+\section*{Week 13 : Class Exercises}
+
+\subsection*{Exercise 1}
+
+\begin{align*}
+	v_{m, M} &= a \dot{\theta} \hat{\theta}\\
+	&= a \dot{\theta} (\cos \theta \hat{i} + \sin \theta \hat{j})\\
+	&= a \omega (\cos \theta \hat{i} + \sin \theta \hat{j})
+\end{align*}
+By COLM in the horizontal direction,
+\begin{align*}
+	0 &= m (v_m)_x + M (v_M)_x\\
+	\therefore (v_m)_x &= - \dfrac{M}{m} (v_M)_x
+\end{align*}
+\begin{align*}
+	(v_{m,M})_x &= (v_m)_x - (v_M)_x\\
+	&= -\left( \dfrac{M}{m} + 1 \right) (v_M)_x\\
+	\therefore - (v_M)_x \left( \dfrac{M + m}{m} \right) &= a \dot{\theta} \cos \theta \dot{i}\\
+	\therefore (v_M)_x &= - a \dot{\theta} \cos \theta \dot{i} \left( \dfrac{m}{M + m} \right)\\
+	\therefore (v_m)_x &= -\dfrac{M}{m} \cdot - a \dot{\theta} \cos \theta \dot{i} \left( \dfrac{m}{M + m} \right)\\
+	&= \left( \dfrac{M}{M + m} \right) a \dot{\theta} \cos \theta \dot{i}
+\end{align*}
+\begin{align*}
+	(v_m)_y &= a \dot{\theta} \sin \theta \hat{j}\\
+\end{align*}
+Therefore,
+\begin{align*}
+	v_m &= \left( \dfrac{M}{M + m} \right) a \dot{\theta} \cos \theta \dot{i} + a \dot{\theta} \sin \theta \hat{j}\\
+	v_M &= - \left( \dfrac{m}{M + m} \right) a \dot{\theta} \cos \theta \hat{i}
+\end{align*}
+
+\end{document}
