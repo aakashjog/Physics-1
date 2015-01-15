@@ -1,0 +1,107 @@
+\documentclass[fleqn, a4paper, 12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{gensymb}
+\usepackage{commath}
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{siunitx}
+\usepackage{tikz, pgfplots}
+	\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{xfrac}
+\usepackage{asymptote}
+\usepackage{enumerate}
+\setcounter{secnumdepth}{4}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+%\renewcommand{\int_{min}^{max}}{\int\displaylimits_{min}^{max}}
+
+%opening
+\title{Lecture 23}
+\author{Aakash Jog}
+\date{\formatdate{15}{1}{2015}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{Gravitation}
+
+\subsection{Kepler's Second Law}
+
+\begin{tikzpicture}
+	\def\a{5};
+	\def\b{4};
+	\def\angle{10};
+
+	\coordinate (focus) at ({-sqrt(\a*\a - \b*\b)},0);
+
+	\draw (0,0) circle [x radius = \a, y radius = \b];
+	
+	\draw [-stealth] (focus) -- ({\a*cos(\angle)},{\b*sin(\angle)}) node [midway, above] {$\overrightarrow{r}(t + \dif t)$};
+	\draw [-stealth] (focus) -- (\a,0) node [midway, below] {$\overrightarrow{r}(t)$};
+	\draw [-stealth] (\a,0) -- ({\a*cos(\angle)},{\b*sin(\angle)}) node [midway, right] {$\dif \overrightarrow{r}$};
+\end{tikzpicture}
+
+\begin{align*}
+	\dif \overrightarrow{A} &= \dfrac{1}{2} \overrightarrow{r} \times \dif \overrightarrow{r}\\
+	\therefore \dod{\overrightarrow{A}}{t} &= \dfrac{1}{2} \overrightarrow{r} \times \dod{\overrightarrow{r}}{t}\\
+	&= \dfrac{1}{2} \overrightarrow{r} \times \overrightarrow{v}\\
+	&= \dfrac{\overrightarrow{L}}{2m}
+\end{align*}
+
+\subsection{Newton's Law of Gravitation}
+
+\begin{align*}
+	F &= G \dfrac{m_1 m_2}{r^2}
+\end{align*}
+
+\begin{align*}
+	\overrightarrow{F} &= \dfrac{c}{r^2} \hat{r}\\
+	&= \dfrac{c}{x^2 + y^2 + z^2} \left( \dfrac{x}{\sqrt{x^2 + y^2 + z^2}}, \dfrac{y}{\sqrt{x^2 + y^2 + z^2}}, \dfrac{z}{\sqrt{x^2 + y^2 + z^2}} \right)\\
+	&= \dfrac{c}{(x^2 + y^2 + z^2)^{\sfrac{3}{2}}} (x,y,z)\\
+	\therefore \curl \left( \overrightarrow{F} \right) &= 0
+\end{align*}
+Therefore, $\overrightarrow{F}$ is conservative.
+
+\begin{align*}
+	\overrightarrow{F} &= - \overrightarrow{\nabla} U\\
+	\dpd{U}{x} &= - \dfrac{c x}{(x^2 + y^2 + z^2)^{\sfrac{3}{2}}}\\
+	\dpd{U}{y} &= - \dfrac{c y}{(x^2 + y^2 + z^2)^{\sfrac{3}{2}}}\\
+	\dpd{U}{z} &= - \dfrac{c z}{(x^2 + y^2 + z^2)^{\sfrac{3}{2}}}
+\end{align*}
+Therefore,
+\begin{align*}
+	U &= \dfrac{c}{r} + d
+\end{align*}
+Considering the potential to be zero at $r = \infty$,
+\begin{align*}
+	U &= \dfrac{c}{r}\\
+	&= -G\dfrac{m_1 m_2}{r}
+\end{align*}
+
+\end{document}
