@@ -404,17 +404,56 @@ Therefore, the Coriolis and centrifugal forces are very small compared to gravit
 		\draw (mass) -- ++({180 - \angle}:\F) node [above] {$f$};
 		\draw (mass) -- ++(-90:\F) node [left] {$mg$};
 		\draw (mass) -- ++(90:\F) node [right] {$F_B$};
-		\draw ($ (mass) + (1,1) $) -- ++(90:\F) node [above] {$a_y$};
+		\draw ($ (mass) + (1,1) $) -- ++(-90:\F) node [below] {$a_y$};
 		\draw ($ (mass) + (1,1) $) -- ++(0:\F) node [above] {$a_x$};
 	\end{scope}
 \end{tikzpicture}\\
 
 \begin{align*}
-	m a_y &= F_B - m g + f \sin \theta\\
-	&= \rho_W V g - m g + k v_x\\
-	&= \dfrac{4}{3} \pi \rho_W R^3 g - m g + k v_y\\
+	m a_y &= - F_B + m g - f \sin \theta\\
+	&= - \rho_W V g + m g - k v_x\\
+	&= - \dfrac{4}{3} \pi \rho_W R^3 g + m g - k v_y\\
 	m a_x &= - f \cos \theta\\
 	&= - k v_x
+\end{align*}
+Therefore,
+\begin{align*}
+	m \ddot{x} &= - k \dot{x}\\
+	m \ddot{y} &= - k \dot{y} - \dfrac{4}{3} \pi \rho_W R^3 g + m g
+\end{align*}
+Therefore,
+\begin{align*}
+	\dod{v_x}{t} &= - \dfrac{k}{m} v_x\\
+	\therefore \dfrac{\dif v_x}{v_x} &= - \dfrac{k}{m} \dif t\\
+	\therefore \ln v_x  - \ln v_0 \cos \theta &= - \dfrac{k}{m} t \\
+	\therefore \dfrac{v_x}{v_0 \cos \theta} &= e^{-\sfrac{kt}{m}}\\
+	\therefore v_x &= v_0 \cos \theta e^{-\sfrac{kt}{m}}
+\end{align*}
+~\\
+\begin{align*}
+	\dod{v_y}{t} &= - \dfrac{k}{m} v_y - \dfrac{\rho_W V g}{\rho_B g} + g\\
+	&= g \left( 1 - \dfrac{\rho_W}{\rho_B} \right) - \dfrac{k}{m} v_y
+\end{align*}
+Let 
+\begin{align*}
+	u &= g \left( 1 - \dfrac{\rho_W}{\rho_B} \right) - \dfrac{k}{m} v_y\\
+	\therefore \dif u &= - \dfrac{k}{m} \dif v_y
+\end{align*}
+Let
+\begin{align*}
+	A &= g \left( 1 - \dfrac{\rho_W}{\rho_B} \right)\\
+	B &= \dfrac{k}{m}
+\end{align*}
+Therefore,
+\begin{align*}
+	\therefore \dfrac{\dif u}{u} &= - \dfrac{k}{m} v_y \dif t\\
+	\therefore \ln u &= - \dfrac{k}{m} v_y t + c\\
+	\therefore v_y &= \dfrac{A}{B} t + \left( v_0 \sin \theta - \dfrac{A}{B} \right)e^{-Bt}
+\end{align*}
+At $t = t_0$, $v_y(t) = 0$.
+\begin{align*}
+	t_0 &= \dfrac{1}{B} \ln \left( \dfrac{v_y \sin \theta + \sfrac{A}{B}}{\sfrac{A}{B}} \right)\\
+	\therefore y_{\textnormal{max}} &= \dfrac{v_0 \sin \theta}{B} - \dfrac{A}{B^2} \ln \left( \dfrac{B v_0 \sin \theta}{A} + 1 \right)
 \end{align*}
 
 \end{document}
