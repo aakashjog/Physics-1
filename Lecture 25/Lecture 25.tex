@@ -1,0 +1,257 @@
+\documentclass[fleqn, a4paper, 12pt]{amsart}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{marginnote}
+\usepackage{gensymb}
+\usepackage{commath}
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{siunitx}
+\usepackage{tikz, pgfplots}
+	\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{changes}
+\usepackage{ulem}
+\usepackage{xfrac}
+\usepackage{asymptote}
+\usepackage{enumerate}
+\usepackage{todonotes}
+\usepackage{float}
+\setcounter{secnumdepth}{4}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+%\renewcommand{\int_{min}^{max}}{\int\displaylimits_{min}^{max}}
+
+%opening
+\title{Lecture 25}
+\author{Aakash Jog}
+\date{\formatdate{22}{1}{2015}}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\tableofcontents
+
+\newpage
+\section{}
+
+\begin{example}
+	A disk with mass $m_1$ and radius $R$ is rotating with $\omega$. A rod is fixed at its centre and two masses of mass $m_2$ are fixed to the rod with springs of coefficient $k$. The natural length of the springs is $r_0$.\\
+	At some $t > 0$, and a small enough $\omega$, the masses are in radial equilibrium. Find the $r$ in such a case.\\
+	At some $\Omega$, $r = R$. Find $\Omega$.\\
+	In the external frame of reference, find the total mechanical energy.
+\end{example}
+
+\begin{solution}
+	In the wedge frame of reference,
+	\begin{align*}
+		k (r - r_0) &= m_2 \omega^2 r\\
+		\therefore k r - k r_0 &= m_2 \omega^2 r\\
+		\therefore r (k - m_2 \omega^2) &= k r_0\\
+		\therefore r &= \dfrac{k r_0}{k - m_2 \omega^2}
+	\end{align*}
+	~\\
+	\begin{align*}
+		\therefore R &= \dfrac{k r_0}{k - m_2 \Omega^2}\\
+		\therefore k - m_2 \Omega^2 &= \dfrac{k r_0}{R}\\
+		\therefore m_2 \Omega^2 &= k - \dfrac{k r_0}{R}\\
+		\therefore \Omega^2 &= \dfrac{k}{m_2} \left( 1 - \dfrac{r_0}{R} \right)
+	\end{align*}
+	~\\
+	\begin{align*}
+		E &= \dfrac{1}{2} I \omega^2 + 2 \cdot \dfrac{1}{2} k (r - r_0)^2\\
+		&= \dfrac{1}{2} \left( \dfrac{1}{2} m_1 R^2 + 2 m_2 r^2 \right) \omega^2 + k (r - r_0)^2\\
+		&= \dfrac{1}{2} \left( \dfrac{1}{2} m_1 R^2 + 2 m_2 r^2 \right) \omega^2 + k (r - r_0)^2
+	\end{align*}
+\end{solution}
+
+\begin{example}
+	A particle of mass $m_1$ hits a rod of length $L$ and mass $m_2$, at height $h$ from the rod's centre of mass.\\
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\def\L{4};
+			\def\h{1};
+			\def\F{0.5};
+			
+			\draw [ultra thick] (0,{-\L/2}) -- (0,{\L/2});
+			
+			\fill (-\h,-\h) circle [radius = 2pt];
+			
+			\draw [-stealth] (-\h,-\h) -- ++(0:\F);
+			
+			\begin{scope}[dashed]
+				\draw ({-\L},0) -- ({\L,0});
+				\draw ({-\L},{-\h}) -- ({\L},{-\h});
+			\end{scope}
+			
+			\begin{scope}
+				\draw [|<->|] [xshift = 10] (0,{-\L/2}) -- (0,{\L/2}) node [midway, fill = white] {$L$};
+				\draw [|<->|] [xshift = 20] (0,0) -- (0,-\h) node [midway, fill = white] {$h$};
+			\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+	Assuming that the collision is elastic, find $h$ so that $m_1$ stops after the collision. Find the range of $\dfrac{m_2}{m_1}$ such that $m_1$ stops after the collision.
+\end{example}
+
+\begin{solution}
+	As the collision is elastic,
+	\begin{align*}
+		m_1 v_0 &= m_2 v\\
+		m_1 v_0 h &= \dfrac{m_2 L^2}{12} \omega\\
+		\dfrac{1}{2} m_1 {v_0}^2 &= \dfrac{1}{2} \dfrac{m_2 L^2}{12} \omega^2 + \dfrac{1}{2} m_2 v^2
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		m_2 v h &= \dfrac{m_2 L^2}{12} \omega\\
+		\therefore v h &= \dfrac{L^2}{12} \omega\\
+		\therefore \omega &= \dfrac{12 v h}{L^2}\\
+		\therefore \dfrac{1}{2} m_1 {v_0}^2 &= \dfrac{m_2 L^2}{24} \cdot \dfrac{144 v^2 h^2}{L^4} + \dfrac{1}{2} m_2 v^2\\
+		\therefore h &= \sqrt{\dfrac{1}{2} L^2 \left( \dfrac{m_2}{m_1} - 1 \right)}
+	\end{align*}
+	This condition holds if and only if $h \leq \dfrac{L}{2}$.
+	\begin{align*}
+		0 \leq \dfrac{L}{\sqrt{12}} \sqrt{\dfrac{m_2}{m_1} - 1} \leq \dfrac{L}{2}\\
+		1 \leq \dfrac{m_2}{m_1} \leq 4
+	\end{align*}
+\end{solution}
+
+\begin{example}
+	A body made of a hemisphere of radius $a$ and a cylinder of radius $a$ and height $h$ has mass $m$. $\theta$ is the angle between the axis of the vertical. Let the gravitational potential energy be zero at the ground level. Given $z_{\textnormal{COM}} = \left( a + \dfrac{\dfrac{h^2}{2} - \dfrac{a^2}{4}}{h + \dfrac{2a}{3}} \cos \theta \right)$ with respect to the centre of the hemisphere, on the cylinder side of the body, find the gravitational potential energy as a function of $\theta$. Find the condition for the equilibrium at $\theta = 0$ to be stable.
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\def\R{4};
+			\def\h{4};
+			\def\angle{30};
+			
+			\draw ({180 - \angle}:\R) arc ({180 -\angle}:{360 - \angle}:\R);
+			
+			\draw ({180 -\angle}:\R) --++({90 - \angle}:\h) -- ++({-\angle}:{2*\R}) -- ++({-90 - \angle}:\R) -- cycle;
+			
+			\draw (-\R,-\R) -- (\R,-\R);
+		\end{tikzpicture}
+	\end{figure}
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		y_{\textnormal{COM}} &= a + z_{\textnormal{COM}} \cos \theta\\
+		\therefore U &= m g \left( a + \dfrac{\dfrac{h^2}{2} - \dfrac{a^2}{4}}{h + \dfrac{2a}{3}} \cos \theta \right)\\
+		\therefore U' &= m g \left( a + \dfrac{\dfrac{h^2}{2} - \dfrac{a^2}{4}}{h + \dfrac{2a}{3}} \cos \theta \right) (- \sin \theta)\\
+		\therefore U'' &= - m g \left( a + \dfrac{\dfrac{h^2}{2} - \dfrac{a^2}{4}}{h + \dfrac{2a}{3}} \cos \theta \right)
+	\end{align*}
+	For the equilibrium at $\theta = 0$ to be stable,
+	\begin{align*}
+		U'' > 0\\
+		\therefore \left( a + \dfrac{\dfrac{h^2}{2} - \dfrac{a^2}{4}}{h + \dfrac{2a}{3}} \cos \theta \right) < 0
+	\end{align*}
+\end{solution}
+
+\begin{example}
+	A solid hemisphere of mass $m$ and radius $a$ is pivoted at its centre, and is used as a pendulum. Find the angular frequency of its oscillations.
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		\omega &= \sqrt{\dfrac{d m g}{I_0}}\\
+		&= \sqrt{\dfrac{\left( \sfrac{3}{8} \right) a m g}{\left( \sfrac{2}{5} \right) m a^2}}\\
+		&= \sqrt{\dfrac{15 g}{16 a}}
+	\end{align*}
+\end{solution}
+
+\begin{example}
+	A system is arranged on the ground as shown.
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\def\L{2};
+			
+			\draw [gray] ({-2*\L},0) -- ({2*\L},0);
+			
+			\draw [ultra thick] (0,0) -- (\L,0) node [midway, below] {$m_1, L$};
+			\draw [ultra thick] (0,0) -- (0,\L) node [midway, left] {$m_1, L$};
+			
+			\fill (\L,0) circle [radius = 2pt] node [above] {$m_2$};
+			\fill (0,\L) circle [radius = 2pt] node [above] {$m_2$};
+		\end{tikzpicture}
+	\end{figure}
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		I &= \dfrac{2 m_1 L^2}{3} + 2 m_2 L^2
+	\end{align*}
+	~\\
+	\begin{align*}
+		x_{\textnormal{COM}} &= \dfrac{m_1 \cdot 0 + m_2 \cdot 0 + m_1 \cdot \sfrac{L}{2} + m_2 \cdot L}{2 m_1 + 2 m_2}\\
+		\therefore x_{\textnormal{COM}} &= \dfrac{m_1 L + 2 m_2 L}{4(m_1 + m_2)}\\
+		y_{\textnormal{COM}} &= \dfrac{m_1 L + 2 m_2 L}{4(m_1 + m_2)}\\
+	\end{align*}
+	~\\
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\def\L{2};
+			
+			\draw [gray] ({-2*\L},0) -- ({2*\L},0);
+			
+			\draw [ultra thick] (0,0) -- (\L,0) node [midway, below] {$m_1, L$};
+			\draw [ultra thick] (0,0) -- (0,\L) node [midway, left] {$m_1, L$};
+			
+			\fill (\L,0) circle [radius = 2pt] node [above] {$m_2$};
+			\fill (0,\L) circle [radius = 2pt] node [above] {$m_2$};
+		\end{tikzpicture}
+		\caption{Stable equilibrium condition}
+	\end{figure}	
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\def\L{2};
+	
+			\draw [gray] ({-2*\L},0) -- ({2*\L},0);
+			
+			\draw [ultra thick] (0,0) -- (45:\L) node [midway, below right] {$m_1, L$};
+			\draw [ultra thick] (0,0) -- (135:\L) node [midway, below left] {$m_1, L$};
+			
+			\fill (45:\L) circle [radius = 2pt] node [above] {$m_2$};
+			\fill (135:\L) circle [radius = 2pt] node [above] {$m_2$};
+		\end{tikzpicture}
+		\caption{Unstable equilibrium condition}
+	\end{figure}
+	\begin{figure}[H]
+		\begin{tikzpicture}
+			\def\L{2};
+			
+			\draw [gray] ({-2*\L},0) -- ({2*\L},0);
+			
+			\draw [ultra thick] (0,0) -- (-\L,0) node [midway, below] {$m_1, L$};
+			\draw [ultra thick] (0,0) -- (0,\L) node [midway, right] {$m_1, L$};
+			
+			\fill (-\L,0) circle [radius = 2pt] node [above] {$m_2$};
+			\fill (0,\L) circle [radius = 2pt] node [above] {$m_2$};
+		\end{tikzpicture}
+		\caption{Stable equilibrium condition}
+	\end{figure}
+	For the body to topple,
+	\begin{align*}
+		\dfrac{1}{2} I {\omega_{\textnormal{min}}}^2 &= m g \left( \sqrt{{x_{\textnormal{COM}}}^2 + {y_{\textnormal{COM}}}^2} - y_{\textnormal{COM}} \right)
+	\end{align*}
+\end{solution}
+
+\end{document}
