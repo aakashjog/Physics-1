@@ -1,0 +1,172 @@
+\date{}
+\documentclass[fleqn, a5paper]{amsart}
+\usepackage[top = 2cm, bottom = 2cm, left = 2cm, right = 2cm, a5paper]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{marginnote}
+\usepackage{gensymb}
+\usepackage{commath}
+\usepackage{xcolor}
+\usepackage{cancel}
+\usepackage{siunitx}
+\usepackage{tikz, pgfplots}
+	\usetikzlibrary{calc, hobby, patterns, intersections}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{ulem}
+\usepackage{xfrac}
+\usepackage{asymptote}
+\usepackage{enumerate}
+\usepackage{float}
+\setcounter{secnumdepth}{4}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\AxisRotator}[1][rotate=0]{%
+	\tikz [x=0.25cm,y=0.60cm,line width=.2ex,-stealth,#1] \draw (0,0) arc (-150:150:1 and 1);%
+}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]\let\qed\relax}
+	{\end{proof}}
+
+\newcommand{\curl}{\mathrm{curl\,}}
+
+%\renewcommand{\int_{min}^{max}}{\int\displaylimits_{min}^{max}}
+
+%opening
+\title{Physics 1 : Compendium}
+\author{Aakash Jog}
+
+\begin{document}
+
+\maketitle
+%\setlength{\mathindent}{0pt}
+
+\section{Non-Linear Motion}
+
+\begin{align*}
+	\overrightarrow{r} &= r \hat{r} \\
+	\overrightarrow{v} = \dot{\overrightarrow{r}} &= \dot{r} \hat{r} + r \dot{\theta} \hat{\theta} \\
+	\overrightarrow{a} = \ddot{\overrightarrow{r}} &= \left(\ddot{r} - r(\dot{\theta})^2\right) \hat{r} + \left(2 \dot{r} \dot{\theta} + r \ddot{\theta}\right) \hat{\theta}
+\end{align*}
+
+\section{Conservative Forces}
+	\begin{align*}
+		\curl \overrightarrow{F} &\doteq \overrightarrow{\nabla} \times \overrightarrow{F} \\
+		&=
+			\begin{vmatrix} 
+				\hat{x} & \hat{y} & \hat{z} \\
+				\dpd{}{x} & \dpd{}{y} & \dpd{}{z} \\
+				F_x & F_y & F_z \\
+			\end{vmatrix}
+	\end{align*}
+	If $\overrightarrow{F}$ is conservative, $\curl \overrightarrow{F} = 0$.
+
+\section{Variable Mass Systems}
+
+If a rocket is releasing gasses with velocity $u$ with respect to it,
+\begin{equation*}
+\dod{p}{t} = m \dod{v}{t} + \dod{m}{t} u
+\end{equation*}
+
+\section{Centres of Mass}
+
+\begin{tabular}{l l}
+	Solid hemisphere & $\left( \sfrac{3}{8} \right) R$\\
+	Hollow hemisphere & $\left( \sfrac{1}{2} \right) R$\\
+	Solid cone (from vertex) & $\left( \sfrac{3}{4} \right) h$\\
+	Hollow cone (from vertex) & $\left( \sfrac{2}{3} \right) h$\\
+\end{tabular}
+
+\section{Moments of Inertia}
+
+\begin{equation*}
+	I = \int r^2 \dif m
+\end{equation*}
+
+\begin{tabular}{l l}
+	Ring ($\perp$ to plane) & $m R^2$\\
+	Disk ($\perp$ to plane) & $\left( \sfrac{1}{2} \right) m R^2$\\
+	Solid sphere & $\left( \sfrac{2}{5} \right) m R^2$\\
+	Hollow sphere & $\left( \sfrac{2}{3} \right) m R^2$\\
+	Rod (centre) & $\left( \sfrac{1}{12} \right) m l^2$\\
+	Rod (end) & $\left( \sfrac{1}{3} \right) m l^2$\\
+	Cone (axis of symmetry) & $\left( \sfrac{3}{10} \right) m R^2$\\
+\end{tabular}
+
+\section{Accelerating Systems}
+
+\begin{equation*}
+	F_{\textnormal{centrifugal}} = - m \overrightarrow{\omega} \times \left( \overrightarrow{\omega} \times \overrightarrow{r} \right)
+\end{equation*}
+\begin{equation*}
+	F_{\textnormal{coriolis}} = - 2 m \overrightarrow{\omega} \times \overrightarrow{v}
+\end{equation*}
+
+\section{Oscillations}
+
+\subsection{Simple Oscillations}
+
+\begin{equation*}
+	\ddot{x} = - \omega^2 x
+\end{equation*}
+
+\begin{equation*}
+	\omega_{\textnormal{physical pendulum}} = \sqrt{\dfrac{d_{\textnormal{axis,COM}} m g}{I_{\textnormal{axis}}}}
+\end{equation*}
+
+\subsection{Damped Oscillations}
+
+\begin{equation*}
+	\ddot{x} + \dfrac{\beta}{m} \dot{x} + {\omega_0}^2 x = 0
+\end{equation*}
+
+\begin{tabular}{c c}
+	Strong damping & $\dfrac{\beta}{2m} > \omega_0$\\[2ex]
+	Critical damping & $\dfrac{\beta}{2m} = \omega_0$\\[2ex]
+	Weak damping & $\dfrac{\beta}{2m} < \omega_0$\\[2ex]
+\end{tabular}\\
+Oscillations occur in case of weak damping.\\
+
+Let $\omega_1 = \sqrt{{\omega_0}^2 - \left( \dfrac{\beta}{2m} \right)^2}$.\\
+For weak damping,
+\begin{equation*}
+	x = e^{-\sfrac{\beta}{2m} \cdot t} \left( \widetilde{A} \cos \omega_1 t + \widetilde{B} \sin \omega_1 t \right)
+\end{equation*}
+For critical damping,
+\begin{equation*}
+	x = e^{-\sfrac{\beta}{2m} \cdot t} \left( \widetilde{A} + \widetilde{B} t \right)
+\end{equation*}
+In case of strong damping,
+\begin{equation*}
+	x = \widetilde{A} e^{\left( -\sfrac{\beta}{2m} + \sqrt{-{\omega_1}^2} \right)} + \widetilde{B} e^{\left( -\sfrac{\beta}{2m} - \sqrt{-{\omega_1}^2} \right) t}
+\end{equation*}
+
+\subsection{Forced Oscillations}
+
+\begin{align*}
+	m \ddot{x} + \dfrac{k}{m} x &= \dfrac{F_0}{m} \cos \omega t\\
+	\therefore \ddot{x} + \dfrac{k}{m} x &= \dfrac{F_0}{m} \cos \omega t
+\end{align*}
+Therefore, solving
+\begin{align*}
+	x &= A \cos \omega_0 t + B \sin \omega_0 t + \dfrac{F_0}{k - m \omega^2} \cos \omega t\\
+	\therefore \dot{x} &= \omega_0 (-A \sin \omega_0 t + B \cos \omega_0 t) - \dfrac{F_0}{k - m \omega^2} \omega \sin \omega t
+\end{align*}
+Substituting initial conditions,
+\begin{align*}
+	x &= \dfrac{\dfrac{F_0}{m}}{\dfrac{k}{m} - \omega^2} (-\cos \omega_0 t + \cos \omega t)\\
+	\intertext{Let $\dfrac{F_0}{m} = f_0$}
+	\therefore x &= -\dfrac{2 f_0}{{\omega_0}^2 - \omega^2} \sin \left( \dfrac{\omega t - \omega_0 t}{2} \right) \sin \left( \dfrac{\omega t + \omega_0 t}{2} \right)\\
+	\intertext{$\omega - \omega_0 = \Delta \omega$ and $\omega + \omega_0 \approx 2 \omega_0$}
+	\therefore x &\approx \dfrac{2 f_0}{\Delta \omega \cdot 2 \omega_0} \sin \left( \dfrac{\Delta \omega}{2} t \right) \cdot \sin (\omega_0 t)
+\end{align*}
+
+\end{document}
