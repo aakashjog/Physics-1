@@ -68,6 +68,168 @@
 			\end{vmatrix}
 	\end{align*}
 	If $\overrightarrow{F}$ is conservative, $\curl \overrightarrow{F} = 0$.
+	\begin{equation*}
+		F = - \dod{U}{r}
+	\end{equation*}
+\section{Conservation of Momenta}
+
+\begin{example}
+	On one side of a boat of mass $M$, a box of mass $m$ is placed and the boat's engine is pulling the box via a massless rope. At $t = 0$ the entire system is at rest. Then the engine is turned on and it starts pulling the box with force $\overrightarrow{F}(t) = \alpha t$ where $\alpha$ is a positive constant. The friction coefficients between the box and the boat are $\mu_s$ and $\mu_k$. The engine is working for time $\tau = \dfrac{mg}{\alpha}$ and then stops. Assuming that the box does not reach the end of the boat nor collide with any other object, what will be the boat's velocity after a very long time $t >> \tau$? Find the box's velocity w.r.t. the boat from the moment the engine is turned on.
+\end{example}
+
+\begin{solution}
+	\begin{align*}
+		F &= \alpha t &;\quad 0 \leq t \leq \tau = \dfrac{mg}{\alpha}\\
+		N_s &= \mu_s m g\\
+		N_k &= \mu_k m g
+	\end{align*}
+		Let $t_0$ be the time when the box starts moving.
+	\begin{align*}
+		F(t) &= \mu_s m g\\
+		&= \alpha t\\
+		\therefore t_0 &= \dfrac{\mu_s m g}{\alpha}
+	\end{align*}
+		For $t_0 < t < \tau$,
+	\begin{align*}
+		\alpha t - \mu_k m g &= m a\\
+		\therefore a &= \dfrac{\alpha t}{m} - \mu_k g\\
+		\therefore v &= \int\limits_{t_0}^{\tau} a(t) \dif t\\
+		&= \dfrac{\alpha}{2m} (\tau^2 - t_0^2) - \mu_k g (\tau - t_0)
+	\end{align*}
+		For $t > \tau$,
+	\begin{align*}
+		a &= \mu_k g\\
+		\therefore v &= v_{\tau} + \int\limits_{\tau}^{t} g \dif t\\
+		&= v_{\tau} - \mu_k g (t - \tau)
+	\end{align*}
+\end{solution}
+
+\section{Rigid Body Motion}
+
+\subsection{Gyroscope}
+A disk is attached to rods as shown, and is rotating about itself with $\omega$.\\
+\begin{tikzpicture}[scale = 0.5]
+	\def\y{4};
+	\def\x{5};
+	\def\R{2};
+	
+	\draw (0,0) -- (0,\y);
+	\draw (0,\y) -- (\x,\y) node [midway, above] {$r$};
+	
+	\filldraw [fill = red, opacity = 0.5] (\x,\y) circle [x radius = 0.4*\R, y radius = \R];
+\end{tikzpicture}\\
+The torque is directed $\otimes$.\\
+Seen from the top,\\
+\begin{tikzpicture}[scale = 0.5]
+	\def\r{4};
+	\def\R{1};
+	\def\angle{30};
+	\def\F{1};
+
+	\draw (0,0) -- (\angle:\r) node [midway, above] {$r$};
+	\draw [ultra thick, red] (\angle:\r) -- ++({90 + \angle}:\R);
+	\draw [ultra thick, red] (\angle:\r) -- ++({-90 + \angle}:\R);
+	
+	\draw [-stealth] (0,0) -- ++({90 + \angle}:\F) node [above] {$\tau$};
+	\draw [-stealth] (\angle:\r) -- ++(\angle:\F) node [above] {$L$};
+\end{tikzpicture}\\
+\begin{align*}
+	\overrightarrow{\tau} &= \tau \hat{\theta}
+\end{align*}
+with respect to the joint,
+\begin{align*}
+	\overrightarrow{L} &= \dfrac{1}{2} m R^2 \omega \hat{r}\\
+	\therefore \dod{\overrightarrow{L}}{t} &= \dfrac{1}{2} m R^2 \omega \cdot \dod{\hat{r}}{t}\\
+	\therefore \tau &= \dfrac{1}{2} m R^2 \omega \dot{\theta}\\
+	\therefore m g r &= \dfrac{1}{2} m R^2 \omega \dot{\theta}
+\end{align*}
+Therefore,
+\begin{align*}
+	\dot{\theta} &= \dfrac{2 g r}{R^2 \omega}
+\end{align*}
+
+\begin{example}
+	A disk of mass $m$ and radius $R$ is fixed on a rod and is kept on two stands fixed on another disk which is rotating with $\Omega$. Find the normal forces that the stands are exerting on the rod.\\
+	\begin{tikzpicture}[scale = 0.5]
+		\def\z{4};
+		\def\a{3};
+		\def\b{4};
+		\def\R{2};
+		
+		\coordinate (disk centre) at (0,\z);
+		\coordinate (A) at (-\a,\z);
+		\coordinate (B) at (\b,\z);
+		
+		\filldraw [fill = red, opacity = 0.2] (0,0) circle [x radius = {\a + \b}, y radius = {0.1*(\a + \b)}];
+		
+		\filldraw (0,0) circle [radius = 2pt];
+		
+		\draw [ultra thick] (A) -- ++(-90:\z);
+		\draw [ultra thick] (B) -- ++(-90:\z);
+		
+		\node at (A) [left] {$A$};
+		\node at (B) [right] {$B$};
+		
+		\draw (disk centre) -- (A) node [midway, above] {$a$};
+		\draw (disk centre) -- (B) node [midway, above] {$b$};
+		
+		\draw [dashed] (disk centre) -- (0,0);
+		
+		\filldraw [fill = red, opacity = 0.5] (0,\z) circle [x radius = 0.4*\R, y radius = \R];
+	\end{tikzpicture}\\
+	\begin{tikzpicture}
+	
+	\end{tikzpicture}
+\end{example}
+
+\begin{solution}
+	As viewed from the top,\\
+	\begin{tikzpicture}[scale = 0.5]
+		\def\angle{30};
+		\def\a{4};
+		\def\b{4};
+		\def\F{3};
+		
+		\draw [-stealth, red] (0,0) -- (\angle:1) node [above] {$\hat{r}$};
+		
+		\draw [-stealth, red] (0,0) -- ({90 + \angle}:1) node [above right] {$\hat{\theta}$};
+		
+		\draw [dashed] (0,0) -- (\angle:\b) node [above right] {$N_B$};
+		\node at (\angle:\b) {$\odot$};
+		
+		\draw [dashed] (0,0) -- ({180 + \angle}:\a) node [above left] {$N_A$};
+		\node at ({180 + \angle}:\a) {$\odot$};
+		
+		\draw [-stealth] (0,0) -- (\angle:\F) node [above] {$L$};
+		\draw [-stealth] (0,0) -- ({90 + \angle}:\F) node [above] {$\tau_A$};
+		\draw [-stealth] (0,0) -- ({-90 + \angle}:\F) node [below] {$\tau_B$};
+	\end{tikzpicture}\\
+	About the point $O$,
+	\begin{align*}
+		\overrightarrow{L} &= \dfrac{1}{4} m R^2 \Omega \hat{z} + \dfrac{1}{2} m R^2 \omega \hat{r}\\
+		\therefore \overrightarrow{\tau} &= \dod{\overrightarrow{L}}{t}\\
+		&= \dod{}{t} \left( \dfrac{1}{4} m R^2 \Omega \hat{z} + \dfrac{1}{2} m R^2 \omega \hat{r} \right)\\
+		&= \dod{}{t} \left( \dfrac{1}{2} m R^2 \omega \hat{r} \right)
+	\end{align*}
+	The net torque about point $O$ is only due to the normal forces.\\
+	Therefore, the net torque is in the $\hat{\theta}$ direction. Hence, it cannot change the magnitude of $\omega$, but only the direction.\\
+	Therefore,
+	\begin{align*}
+		\overrightarrow{\tau} &= \dod{}{t} \left( \dfrac{1}{4} m R^2 \Omega \hat{z} + \dfrac{1}{2} m R^2 \omega \hat{r} \right)\\
+		&= \dfrac{1}{2} m R^2 \omega \dod{\hat{r}}{t}\\
+		&= \dfrac{1}{2} m R^2 \omega \dot{\theta} \hat{\theta}\\
+		&= \dfrac{1}{2} m R^2 \omega \Omega \hat{\theta}\\
+		\therefore a N_A \hat{\theta} + b N_b (-\hat{\theta}) &= \dfrac{1}{2} m R^2 \omega \Omega \hat{\theta}
+	\end{align*}
+	Therefore,
+	\begin{align*}
+		a N_A - b N_B &= \dfrac{1}{2} m R^2 \omega \Omega
+	\end{align*}
+	Also,
+	\begin{align*}
+		N_A + N_B &= m g
+	\end{align*}
+\end{solution}
 
 \section{Variable Mass Systems}
 
@@ -84,6 +246,22 @@ If a rocket is releasing gasses with velocity $u$ with respect to it,
 	Solid cone (from vertex) & $\left( \sfrac{3}{4} \right) h$\\
 	Hollow cone (from vertex) & $\left( \sfrac{2}{3} \right) h$\\
 \end{tabular}
+
+\begin{example}
+	Find the centre of mass of an eighth of a solid sphere.
+\end{example}
+
+\begin{solution}
+	Consider an elemental mass $\dif m$ at $(r, \theta, \varphi)$.
+	\begin{align*}
+		x_{\text{COM}} &= \dfrac{\int\limits_{r = 0}^{R} \int\limits_{\theta = 0}^{\frac{\pi}{2}} \int\limits_{\varphi = 0}^{\frac{\pi}{2}} r \sin \theta \cos \varphi \dif V}{\iiint \dif V}\\
+		&= \dfrac{\int\limits_{r = 0}^{R} \int\limits_{\theta = 0}^{\frac{\pi}{2}} \int\limits_{\varphi = 0}^{\frac{\pi}{2}} r \sin \theta \cos \varphi (r^2 \sin \theta \dif r \dif \theta \dif \varphi)}{\dfrac{1}{8} \cdot \dfrac{4}{3} \pi R^3}
+	\end{align*}
+	Therefore,
+	\begin{equation*}
+		\therefore x_{\text{COM}} = y_{\text{COM}} = z_{\text{COM}} = \dfrac{3}{8} R
+	\end{equation*}
+\end{solution}
 
 \section{Moments of Inertia}
 
